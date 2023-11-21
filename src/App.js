@@ -1,24 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import Home from './views/Home';
+import { AuthProvider } from './contexts/AuthContext';
+import MyProfile from './views/MyProfile';
+import Login from './views/Login';
+import Navbar from './components/Navbar';
+import { useEffect } from 'react';
+import useAuth from './hooks/useAuth';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <AuthProvider>
+        <Navbar />
+        <Routes>
+          <Route exact index element={<Home />} />
+          <Route exact path={"my-profile"} element={<MyProfile />} />
+          <Route exact path={"login"} element={<Login />} />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 
